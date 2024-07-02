@@ -1,32 +1,28 @@
- name: Node.js CI
+name: Node.js CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main" ]  # Se ejecuta en push a la rama 'main'
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main" ]  # Se ejecuta en solicitudes de extracción a la rama 'main'
 
 jobs:
   build:
-
-    runs-on: ubuntu-20.04  # Especifica 'ubuntu-20.04' para usar Ubuntu 20.04
+    runs-on: ubuntu-latest
 
     strategy:
       matrix:
         node-version: [14.x, 16.x, 18.x]
 
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
 
-    - run: npm install  # Instala las dependencias
-
-    - run: npm run build --if-present  # Compila el código (si el script está presente en package.json)
-
-    - run: npm test  # Ejecuta las pruebas
-
+      - run: npm install
+      - run: npm run build --if-present
+      - run: npm test
