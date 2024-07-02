@@ -12,17 +12,16 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [20.x]  # Solo utilizaremos Node.js 20.x
+        node-version: [20.x]  
 
     steps:
       - uses: actions/checkout@v4
 
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2  # Usamos la última versión disponible de setup-node
+        uses: actions/setup-node@v2  
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - run: npm install  # Aseguramos que las dependencias estén instaladas
       - run: npm run build
       - run: npm test
 
