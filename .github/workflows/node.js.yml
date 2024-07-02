@@ -18,10 +18,12 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v5  # Usamos la versión v5 de setup-node para Node.js 20
+        uses: actions/setup-node@v2  # Usamos la última versión disponible de setup-node
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
+      - run: npm install  # Aseguramos que las dependencias estén instaladas
       - run: npm run build
       - run: npm test
+
 
